@@ -1,0 +1,20 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  override:
+    - docker info
+    - docker build -t nktpro/reack .
+
+test:
+  override:
+    - docker run -i -v ${PWD}/test:/opt/reack/app -w /opt/reack/app nktpro/reack gulp
+    - ls ${PWD}/test/build/index.js && ls ${PWD}/test/build/index.html
+
+deployment:
+  hub:
+    branch: master
+    commands:
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      - docker push nktpro/reack
