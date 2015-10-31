@@ -1,5 +1,5 @@
-const React   = require('react');
-const Logo    = require('./Logo');
+const React = require('react');
+import Logo from './Logo';
 const Promise = require('bluebird');
 
 require('./App.less');

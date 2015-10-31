@@ -7,15 +7,16 @@
     "bluebird": "*",
     "classnames": "*",
     "react": "*",
-    "react-dom": "*"
-  },
-  "devDependencies": {
+    "react-dom": "*",
+    "rx": "*",
+    "setimmediate": "*",
+
     "autoprefixer-loader": "*",
     "babel-core": "*",
     "babel-loader": "babel/babel-loader#develop",
     "babel-preset-nktpro": "nktpro/babel-preset#master",
     "babel-plugin-transform-regenerator": "*",
-    "babel-runtime": "*",
+    "core-js": "*",
     "css-loader": "*",
     "extract-text-webpack-plugin": "*",
     "minimist": "*",
@@ -25,12 +26,33 @@
     "json-loader": "*",
     "less": "*",
     "less-loader": "*",
+    "ts-loader": "*",
+    "typescript": "*",
     "lodash.merge": "*",
     "script-loader": "*",
     "style-loader": "*",
     "url-loader": "*",
+    "file-loader": "*",
     "webpack": "*",
-    "webpack-dev-server": "*"
+    "webpack-dev-server": "*",
+
+    "jasmine": "*",
+    "jasmine-core": "*",
+    "karma": "*",
+    "karma-chrome-launcher": "*",
+    "karma-coverage": "*",
+    "karma-jasmine": "*",
+    "karma-phantomjs-launcher": "*",
+    "karma-sourcemap-loader": "*",
+    "karma-webpack": "*",
+    "source-map-loader": "*",
+
+    "eslint": "*",
+    "babel-eslint": "*",
+    "eslint-plugin-react": "*",
+    "gulp-eslint": "*",
+    "tslint": "*",
+    "gulp-tslint": "*"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -11,9 +11,10 @@ const cliOptions        = {
   default: {path: 'build'}
 };
 
-const cli      = minimist(process.argv.slice(2), cliOptions);
-const distPath = cli.path;
+const cli          = minimist(process.argv.slice(2), cliOptions);
+const distPath     = cli.path;
 const polyfillPath = '../polyfill.js';
+const babelLoader  = 'babel-loader?presets[]=nktpro&plugins[]=transform-regenerator';
 
 const webpackConfig = {
   output: {
@@ -23,19 +24,21 @@ const webpackConfig = {
   resolve: {
     // Simply means that when it tries to resolve "foo/bar/baz",
     // it will try "foo/bar/baz.js" and "foo/bar/baz.jsx" too
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx', '.ts', '.tsx']
   },
 
   module: {
     loaders: [
       // Transpile all .jsx files with babel
       {
-        test  : /\.jsx$/,
-        loader: 'babel',
-        query : {
-          presets: ["nktpro"],
-          plugins: ["transform-regenerator"]
-        }
+        test   : /\.js(x?)$/,
+        loader : babelLoader,
+        exclude: /node_modules\//
+      },
+      // TypeScript
+      {
+        test   : /\.ts(x?)$/,
+        loaders: [babelLoader, 'ts-loader']
       },
       // Bundle all .css files with auto-prefixing
       {
@@ -74,7 +77,7 @@ gulp.task('default', function() {
     // at the beginning of the output JS bundle. UglifyJS will then perform deadcode elimination on
     // all "if" block where process.env.NOVE_ENV !== "production". In other words it strips all development code
     new webpack.DefinePlugin({
-      '__BUILD__': '1',
+      '__BUILD__'  : '1',
       'process.env': {
         'NODE_ENV': '"production"'
       }
@@ -104,7 +107,7 @@ gulp.task('default', function() {
 // Development task, basically start up a dev server that constantly watching for changes and update the output bundle
 // All you need to do then is to make changes, and reload the browser
 gulp.task('dev', function() {
-  webpackConfig = _merge(webpackConfig, {
+  const config = _merge(webpackConfig, {
     cache      : true,
     debug      : true,
     // Make sure "Enable JavaScript source maps" is checked in Dev Tools settings and you're good to go
@@ -119,21 +122,52 @@ gulp.task('dev', function() {
     }
   });
 
-  webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
+  config.plugins.push(new webpack.HotModuleReplacementPlugin());
 
-  new WebpackDevServer(webpack(webpackConfig), {
-    contentBase: './public',
-    publicPath : '/',
-    hot        : true,
-    stats      : {cached: false, cachedAssets: false},
+  new WebpackDevServer(webpack(config), {
+    contentBase : './public',
+    publicPath  : '/',
+    hot         : true,
+    stats       : {cached: false, cachedAssets: false},
     watchOptions: {
       aggregateTimeout: 300,
-      poll: 500
-    },
+      poll            : 500
+    }
   }).listen(11111, null, function(err) {
     if (err) {
       throw new err;
     }
     console.log('Dev server is up at http://localhost:11111/');
   });
+});
+
+const tslint = require('gulp-tslint');
+gulp.task('tslint', function() {
+  return gulp.src(['src/**/*.ts', 'src/**/*.tsx', '!src/typings/**/*'])
+             .pipe(tslint())
+             .pipe(tslint.report('prose', {
+               summarizeFailureOutput: true
+             }));
+});
+
+const eslint = require('gulp-eslint');
+gulp.task('eslint', function() {
+  return gulp.src(['src/**/*.js', 'src/**/*.jsx'])
+             // eslint() attaches the lint output to the eslint property
+             // of the file object so it can be used by other modules.
+             .pipe(eslint())
+             // eslint.format() outputs the lint results to the console.
+             // Alternatively use eslint.formatEach() (see Docs).
+             .pipe(eslint.format())
+             // To have the process exit with an error code (1) on
+             // lint error, return the stream and pipe to failAfterError last.
+             .pipe(eslint.failAfterError());
+});
+
+const KarmaServer = require('karma').Server;
+gulp.task('test', function (done) {
+  new KarmaServer({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done).start();
 });
