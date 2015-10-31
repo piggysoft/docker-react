@@ -1,0 +1,40 @@
+{
+  "name": "@nktpro/reack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "bluebird": "*",
+    "classnames": "*",
+    "react": "*",
+    "react-dom": "*"
+  },
+  "devDependencies": {
+    "autoprefixer-loader": "*",
+    "babel-core": "*",
+    "babel-loader": "babel/babel-loader#develop",
+    "babel-preset-nktpro": "nktpro/babel-preset#master",
+    "babel-plugin-transform-regenerator": "*",
+    "babel-runtime": "*",
+    "css-loader": "*",
+    "extract-text-webpack-plugin": "*",
+    "minimist": "*",
+    "gulp": "*",
+    "gulp-uglify": "*",
+    "webpack-stream": "*",
+    "json-loader": "*",
+    "less": "*",
+    "less-loader": "*",
+    "lodash.merge": "*",
+    "script-loader": "*",
+    "style-loader": "*",
+    "url-loader": "*",
+    "webpack": "*",
+    "webpack-dev-server": "*"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
