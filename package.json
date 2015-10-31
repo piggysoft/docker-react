@@ -23,6 +23,7 @@
     "gulp": "*",
     "gulp-uglify": "*",
     "gulp-sourcemaps": "*",
+    "gulp-typescript": "*",
     "webpack-stream": "*",
     "json-loader": "*",
     "less": "*",
