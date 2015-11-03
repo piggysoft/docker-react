@@ -18,7 +18,8 @@ RUN \
 COPY ./package.json package.json
 
 RUN \
-  npm install --loglevel=warn --no-optional --no-bin-links
+  npm install --loglevel=warn --no-optional --no-bin-links \
+  && npm cache clean
 
 COPY ./polyfill.js polyfill.js
 
