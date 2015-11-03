@@ -15,6 +15,8 @@ Object.defineProperty(window, 'Promise', {
 });
 
 require('babel-plugin-transform-regenerator/runtime');
+require('es6-symbol/implement');
+require('es6-collections');
 
 if (typeof Object.assign == 'undefined') {
   Object.defineProperty(Object, 'assign', {

@@ -128,11 +128,7 @@ gulp.task('dev', function() {
     contentBase : './public',
     publicPath  : '/',
     hot         : true,
-    stats       : {cached: false, cachedAssets: false},
-    watchOptions: {
-      aggregateTimeout: 300,
-      poll            : 500
-    }
+    stats       : {cached: false, cachedAssets: false}
   }).listen(11111, null, function(err) {
     if (err) {
       throw new err;

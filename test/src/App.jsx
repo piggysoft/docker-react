@@ -18,7 +18,6 @@ class App extends React.Component {
     await Promise.delay(1000);
     console.log('two');
     await Promise.delay(1000);
-    throw new Error('Die here');
     console.log('three');
   }
 
