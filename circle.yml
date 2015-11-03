@@ -18,10 +18,13 @@ test:
     - ls ${PWD}/test/build/index.js && ls ${PWD}/test/build/index.html
 
 deployment:
+  latest:
+    commands:
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      - docker push nktpro/reack:latest
   release:
     tag: /v.*/
     commands:
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
       - docker tag nktpro/reack:latest nktpro/reack:${CIRCLE_TAG}
       - docker push nktpro/reack:${CIRCLE_TAG}
-      - docker push nktpro/reack:latest
