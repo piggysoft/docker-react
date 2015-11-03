@@ -25,4 +25,4 @@ COPY ./polyfill.js polyfill.js
 
 WORKDIR /opt/reack/app
 
-CMD ["/bin/bash", "-c", "gulp dev"]
+CMD ["/bin/sh", "-c", "gulp dev"]
