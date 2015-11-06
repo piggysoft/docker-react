@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "sourceMap": true
+  },
+  "exclude": [
+    "assets",
+    "public",
+    "node_modules"
+  ]
+}

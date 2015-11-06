@@ -13,13 +13,16 @@ WORKDIR /opt/reack
 #COPY ./node_modules node_modules
 
 RUN \
-  npm install --loglevel=warn -g gulp grunt-cli
+  npm install -g npm@3.3.12 \
+  && npm install --loglevel=warn -g gulp grunt-cli
 
 COPY ./package.json package.json
 
 RUN \
-  npm install --loglevel=warn --no-optional --no-bin-links \
-  && npm cache clean
+  npm install --loglevel=warn --no-optional
+
+RUN  \
+  npm cache clean
 
 COPY ./polyfill.js polyfill.js
 

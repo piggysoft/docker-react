@@ -6,15 +6,14 @@ Promise.config({
   cancellation: true
 });
 
+Promise.default = Promise;
+
 Object.defineProperty(window, 'Promise', {
-  get: function() {
-    return Promise;
-  },
-  set: function() {
-  }
+  value: Promise,
+  configurable: false
 });
 
-require('babel-plugin-transform-regenerator/runtime');
+require('regenerator/runtime');
 require('es6-symbol/implement');
 require('es6-collections');
 

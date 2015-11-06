@@ -1,8 +1,8 @@
 /// <reference path="react/react.d.ts" />
-declare var __BUILD__:any;
+declare var __BUILD__: any;
 
-interface RequireFunction {
-    (id: string): any;
+interface IRequireFunction {
+  (id: string): any;
 }
 
-declare var require: RequireFunction;
+declare var require: IRequireFunction;

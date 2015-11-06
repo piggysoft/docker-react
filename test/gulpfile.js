@@ -14,7 +14,8 @@ const cliOptions        = {
 const cli          = minimist(process.argv.slice(2), cliOptions);
 const distPath     = cli.path;
 const polyfillPath = '../polyfill.js';
-const babelLoader  = 'babel-loader?presets[]=nktpro&plugins[]=transform-regenerator';
+const mainPath     = './src/Main.tsx';
+const loaders      = require('./loaders');
 
 const webpackConfig = {
   output: {
@@ -29,17 +30,8 @@ const webpackConfig = {
 
   module: {
     loaders: [
-      // Transpile all .jsx files with babel
-      {
-        test   : /\.js(x?)$/,
-        loader : babelLoader,
-        exclude: /node_modules\//
-      },
-      // TypeScript
-      {
-        test   : /\.ts(x?)$/,
-        loaders: [babelLoader, 'ts-loader']
-      },
+      loaders.js,
+      loaders.ts,
       // Bundle all .css files with auto-prefixing
       {
         test  : /\.css/,
@@ -96,7 +88,7 @@ gulp.task('default', function() {
   webpackConfig.output.filename = 'index.js';
 
   // Main.jsx is our entry point for index.js
-  gulp.src([polyfillPath, './src/Main.jsx'])
+  gulp.src([polyfillPath, mainPath])
       .pipe(gulpWebpack(webpackConfig)) // Run it through Webpack
       .pipe(gulp.dest(distPath)); // Then copy it to distPath
 
@@ -118,17 +110,17 @@ gulp.task('dev', function() {
       path: path.join(__dirname, 'public')
     },
     entry      : {
-      index: ['webpack/hot/dev-server', polyfillPath, './src/Main.jsx']
+      index: ['webpack/hot/dev-server', polyfillPath, mainPath]
     }
   });
 
   config.plugins.push(new webpack.HotModuleReplacementPlugin());
 
   new WebpackDevServer(webpack(config), {
-    contentBase : './public',
-    publicPath  : '/',
-    hot         : true,
-    stats       : {cached: false, cachedAssets: false}
+    contentBase: './public',
+    publicPath : '/',
+    hot        : true,
+    stats      : {cached: false, cachedAssets: false}
   }).listen(11111, null, function(err) {
     if (err) {
       throw new err;
@@ -161,9 +153,9 @@ gulp.task('eslint', function() {
 });
 
 const KarmaServer = require('karma').Server;
-gulp.task('test', function (done) {
+gulp.task('test', function(done) {
   new KarmaServer({
     configFile: __dirname + '/karma.conf.js',
-    singleRun: true
+    singleRun : true
   }, done).start();
 });

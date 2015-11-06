@@ -1,8 +1,10 @@
 {
   "compilerOptions": {
-    "jsx": "preserve",
+    "jsx": "React",
     "target": "ES6",
     "experimentalDecorators": true,
+    "experimentalAsyncFunctions": true,
+    "sourceMap": true,
     "noEmit": true
   },
   "exclude": [
