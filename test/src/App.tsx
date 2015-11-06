@@ -19,7 +19,9 @@ class App extends React.Component<{}, {}> {
     // When the debugger stops here, you should be able to validate that source-mapping works correctly
     // Try setting breakpoints on the console.log() statements below here too
     // Async-await is best thing since rice
+    /* tslint:disable */
     debugger;
+    /* tslint:enable */
     console.log('one');
     await Promise.delay(1000);
     console.log('two');
@@ -29,7 +31,6 @@ class App extends React.Component<{}, {}> {
   }
 
   componentDidMount() {
-    debugger;
     const f = this.foo();
     f.cancel();
   }
