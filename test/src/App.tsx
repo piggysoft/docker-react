@@ -30,6 +30,12 @@ class App extends React.Component<{}, {}> {
     return 'cool';
   }
 
+  *bar() {
+    yield 1;
+    yield 2;
+    return 3;
+  }
+
   componentDidMount() {
     const f = this.foo();
     f.cancel();

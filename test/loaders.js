@@ -10,6 +10,7 @@ module.exports = {
       'ts-awaiter-loader',
       'chaining-ts-loader?instance=es5&transpileOnly=true&configFileName=tsconfig.es5.json',
       'babel-loader?plugins[]=transform-regenerator',
-      'ts-loader?instance=es6']
+      'ts-loader?instance=es6'
+     ]
   }
 }
