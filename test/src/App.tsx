@@ -31,8 +31,8 @@ class App extends React.Component<{}, {}> {
   }
 
   *bar() {
-    yield 1;
-    yield 2;
+    yield Promise.delay(100);
+    yield Promise.delay(200);
     return 3;
   }
 
