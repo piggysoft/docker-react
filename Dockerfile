@@ -1,27 +1,14 @@
-FROM node:4.2.1-slim
+FROM nktpro/node-npm3
 
-# Commands
 RUN \
-  apt-get update && \
-  apt-get upgrade -y && \
-  apt-get install -y git python make g++ libfreetype6 libfontconfig bzip2 && \
-  apt-get autoremove -y && \
-  apt-get clean all
+  npm install --quiet -g gulp grunt-cli
 
 WORKDIR /opt/reack
-
-#COPY ./node_modules node_modules
-
-RUN \
-  npm install -g npm@3.3.12 \
-  && npm install --loglevel=warn -g gulp grunt-cli
 
 COPY ./package.json package.json
 
 RUN \
-  npm install --loglevel=warn --no-optional
-
-RUN  \
+  npm install --quiet --no-optional && \
   npm cache clean
 
 COPY ./polyfill.js polyfill.js
